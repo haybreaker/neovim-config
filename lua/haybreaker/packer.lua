@@ -54,4 +54,8 @@ return require('packer').startup(function(use)
 			{'L3MON4D3/LuaSnip'},
 		}
 	}
+
+    -- The Primeagen's Harpoon Plug for Quick File Marking and Nav
+    use 'ThePrimeagen/harpoon'
+    
 end)
