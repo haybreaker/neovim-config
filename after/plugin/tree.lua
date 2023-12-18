@@ -18,6 +18,18 @@ require("nvim-tree").setup({
   },
   renderer = {
     group_empty = true,
+    icons = {
+        web_devicons = {
+            file = {
+                enable = true,
+                color = true
+            },
+            folder = {
+                enable = true,
+                color = true
+            }
+        }
+    }
   },
   filters = {
     dotfiles = true,
