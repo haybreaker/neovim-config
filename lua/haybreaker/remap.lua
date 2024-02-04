@@ -7,6 +7,7 @@ vim.keymap.set("n", "<leader>wk", "<C-w>k")
 vim.keymap.set("n", "<leader>wl", "<C-w>l")
 vim.keymap.set("n", "<leader>wv", "<C-w>v")
 vim.keymap.set("n", "<leader>ws", "<C-w>s")
+vim.keymap.set("n", "<leader>w=", "<C-w>=")
 
 vim.keymap.set("n", "<leader>sa", "ggVG\"+y<C-o>")
 
@@ -57,3 +58,10 @@ vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/the
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
+
+
+-- Nvim Dap Mappings
+vim.keymap.set("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>");
+vim.keymap.set("n", "<leader>dt", "<cmd>DapTerminate<CR>");
+vim.keymap.set("n", "<leader>dr", "<cmd>DapContinue<CR>");
+vim.keymap.set("n", "<leader>de", require('dapui').eval);

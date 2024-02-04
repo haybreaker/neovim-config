@@ -56,6 +56,24 @@ return require('packer').startup(function(use)
 		}
 	}
 
+
+    -- Debugging tools (DAP & Config)
+    use 'mfussenegger/nvim-dap'
+    use {
+        'jay-babu/mason-nvim-dap.nvim',
+        requires = {
+            'williamboman/mason.nvim',
+            'mfussenegger/nvim-dap'
+        }
+    }
+    use {
+        'rcarriga/nvim-dap-ui',
+        requires = {
+            'msfussenegger/nvim-dap'
+        }
+    }
+
+
     -- The Primeagen's Harpoon Plug for Quick File Marking and Nav
     use 'ThePrimeagen/harpoon'
     
