@@ -65,3 +65,6 @@ vim.keymap.set("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>");
 vim.keymap.set("n", "<leader>dt", "<cmd>DapTerminate<CR>");
 vim.keymap.set("n", "<leader>dr", "<cmd>DapContinue<CR>");
 vim.keymap.set("n", "<leader>de", require('dapui').eval);
+vim.keymap.set("n", "<leader>dsi", "<cmd>DapStepInto<CR>");
+vim.keymap.set("n", "<leader>dso", "<cmd>DapStepOver<CR>");
+vim.keymap.set("n", "<leader>dsb", "<cmd>DapStepOut<CR>");

@@ -72,6 +72,7 @@ return require('packer').startup(function(use)
             'msfussenegger/nvim-dap'
         }
     }
+    use 'leoluz/nvim-dap-go'
 
 
     -- The Primeagen's Harpoon Plug for Quick File Marking and Nav

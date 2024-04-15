@@ -1,7 +1,29 @@
 local dap, dapui = require("dap"), require("dapui")
+local dapgo = require("dap-go")
 
 
 -- Debugging Adapters Setup 
+
+-- Go Debugging Adapter Setup (using Mason installed adapter)
+dapgo.setup {
+  dap_configurations = {
+    {
+      -- Must be "go" or it will be ignored by the plugin
+      type = "go",
+      name = "Attach remote",
+      mode = "remote",
+      request = "attach",
+    },
+  },
+  -- delve configurations
+  delve = {
+    path = "dlv",
+    initialize_timeout_sec = 20,
+    port = "${port}",
+    args = {},
+    build_flags = "",
+  },
+}
 
 -- Dart Debugging Adapter Setup
 dap.adapters.dart = {
@@ -59,7 +81,7 @@ dap.configurations.cpp = {
         type = 'codelldb',
         request = 'launch',
         program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd()..'/', 'file')
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd()..'/build/', 'file')
         end,
         cwd = '${workspaceFolder}',
         terminal = 'integrated'
