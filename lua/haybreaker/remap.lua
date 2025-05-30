@@ -68,3 +68,48 @@ vim.keymap.set("n", "<leader>de", require('dapui').eval);
 vim.keymap.set("n", "<leader>dsi", "<cmd>DapStepInto<CR>");
 vim.keymap.set("n", "<leader>dso", "<cmd>DapStepOver<CR>");
 vim.keymap.set("n", "<leader>dsb", "<cmd>DapStepOut<CR>");
+
+-- Lua setup script for Neovim
+vim.api.nvim_set_keymap('n', 'gp', ':lua SwitchBetweenSourceAndHeader()<CR>', { noremap = true, silent = true })
+
+function SwitchBetweenSourceAndHeader()
+    local current_dir = vim.fn.expand("%:p:h") -- Get the current file directory
+
+    -- Identify the file extension
+    local extension = vim.fn.expand("%:e")
+    local base_name = vim.fn.expand("%:t:r")  -- Get the base file name without extension
+
+    -- Define possible header and source extensions
+    local header_extensions = { "hpp", "h" }
+    local source_extensions = { "cpp" }
+
+    local target_file = nil
+
+    if vim.tbl_contains(source_extensions, extension) then
+        -- If we're in a source file, look for the header file
+        for _, ext in ipairs(header_extensions) do
+            local possible_file = current_dir .. "/" .. base_name .. "." .. ext
+            if vim.fn.filereadable(possible_file) == 1 then
+                target_file = possible_file
+                break
+            end
+        end
+    elseif vim.tbl_contains(header_extensions, extension) then
+        -- If we're in a header file, look for the source file
+        for _, ext in ipairs(source_extensions) do
+            local possible_file = current_dir .. "/" .. base_name .. "." .. ext
+            if vim.fn.filereadable(possible_file) == 1 then
+                target_file = possible_file
+                break
+            end
+        end
+    end
+
+    if target_file then
+        -- Open the found file
+        vim.cmd("edit " .. target_file)
+    else
+        print("No corresponding file found.")
+    end
+end
+

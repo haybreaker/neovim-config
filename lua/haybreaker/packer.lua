@@ -69,7 +69,8 @@ return require('packer').startup(function(use)
     use {
         'rcarriga/nvim-dap-ui',
         requires = {
-            'msfussenegger/nvim-dap'
+            'msfussenegger/nvim-dap',
+            'nvim-neotest/nvim-nio'
         }
     }
     use 'leoluz/nvim-dap-go'
