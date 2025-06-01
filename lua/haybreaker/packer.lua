@@ -74,6 +74,12 @@ return require('packer').startup(function(use)
         }
     }
     use 'leoluz/nvim-dap-go'
+    use {
+        'nvim-flutter/flutter-tools.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim'
+        },
+    }
 
 
     -- The Primeagen's Harpoon Plug for Quick File Marking and Nav
