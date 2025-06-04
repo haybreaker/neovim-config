@@ -5,84 +5,84 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-	-- Packer can manage itself
-	use 'wbthomason/packer.nvim'
+  -- Packer can manage itself
+  use 'wbthomason/packer.nvim'
 
-    -- Telescope (File Searching)
-	use {
-		'nvim-telescope/telescope.nvim', tag = '0.1.5',
-		-- or                            , branch = '0.1.x',
-		requires = {
-			{'nvim-lua/plenary.nvim'},
-			{'BurntSushi/ripgrep'}
-		}
-	}
-
-    -- Gruvbox (Rust Style Theme)
-	use {
-		'morhetz/gruvbox',
-		config = function() vim.cmd.colorscheme("gruvbox") end
-	}
-
-    -- Nvim Tree (Sidebar File Explore)
-    use {
-        'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons'
-        },
+  -- Telescope (File Searching)
+  use {
+    'nvim-telescope/telescope.nvim', tag = '0.1.5',
+    -- or                            , branch = '0.1.x',
+    requires = {
+      { 'nvim-lua/plenary.nvim' },
+      { 'BurntSushi/ripgrep' }
     }
+  }
 
-    -- Treesitter, better syntax highlighting and understanding
-	use {
-		'nvim-treesitter/nvim-treesitter',
-		run = ':TSUpdate'
-	}
+  -- Gruvbox (Rust Style Theme)
+  use {
+    'morhetz/gruvbox',
+    config = function() vim.cmd.colorscheme("gruvbox") end
+  }
 
-    -- LspZero (Language Server Features) Definitions, Completion, Debugging
-	use {
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v3.x',
-		requires = {
-			--- LSP Managment Packages
-			{'williamboman/mason.nvim'},
-			{'williamboman/mason-lspconfig.nvim'},
+  -- Nvim Tree (Sidebar File Explore)
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons'
+    },
+  }
 
-			-- LSP Support
-			{'neovim/nvim-lspconfig'},
-			-- Autocompletion
-			{'hrsh7th/nvim-cmp'},
-			{'hrsh7th/cmp-nvim-lsp'},
-			{'L3MON4D3/LuaSnip'},
-		}
-	}
+  -- Treesitter, better syntax highlighting and understanding
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+  }
 
+  -- LspZero (Language Server Features) Definitions, Completion, Debugging
+  use {
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v3.x',
+    requires = {
+      --- LSP Managment Packages
+      { 'williamboman/mason.nvim' },
+      { 'williamboman/mason-lspconfig.nvim' },
 
-    -- Debugging tools (DAP & Config)
-    use 'mfussenegger/nvim-dap'
-    use {
-        'jay-babu/mason-nvim-dap.nvim',
-        requires = {
-            'williamboman/mason.nvim',
-            'mfussenegger/nvim-dap'
-        }
+      -- LSP Support
+      { 'neovim/nvim-lspconfig' },
+      -- Autocompletion
+      { 'hrsh7th/nvim-cmp' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'L3MON4D3/LuaSnip' },
     }
-    use {
-        'rcarriga/nvim-dap-ui',
-        requires = {
-            'msfussenegger/nvim-dap',
-            'nvim-neotest/nvim-nio'
-        }
-    }
-    use 'leoluz/nvim-dap-go'
-    use {
-        'nvim-flutter/flutter-tools.nvim',
-        requires = {
-            'nvim-lua/plenary.nvim'
-        },
-    }
+  }
 
 
-    -- The Primeagen's Harpoon Plug for Quick File Marking and Nav
-    use 'ThePrimeagen/harpoon'
-    
+  -- Debugging tools (DAP & Config)
+  use 'mfussenegger/nvim-dap'
+  use {
+    'jay-babu/mason-nvim-dap.nvim',
+    requires = {
+      'williamboman/mason.nvim',
+      'mfussenegger/nvim-dap'
+    }
+  }
+  use {
+    'rcarriga/nvim-dap-ui',
+    requires = {
+      'msfussenegger/nvim-dap',
+      'nvim-neotest/nvim-nio'
+    }
+  }
+  use 'leoluz/nvim-dap-go'
+  use {
+    'nvim-flutter/flutter-tools.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim'
+    },
+  }
+  use 'dart-lang/dart-vim-plugin'
+
+
+  -- The Primeagen's Harpoon Plug for Quick File Marking and Nav
+  use 'ThePrimeagen/harpoon'
 end)

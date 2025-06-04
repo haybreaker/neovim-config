@@ -18,6 +18,7 @@ treesitter.setup {
   },
 
   indent = {
+    disable = { "dart" },
     enable = true
   },
 

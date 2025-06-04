@@ -5,16 +5,26 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
--- empty setup using defaults
-require("nvim-tree").setup()
+-- Set highlights for nvim-tree diagnostics
+vim.api.nvim_set_hl(0, "NvimTreeDiagnosticError", { link = "DiagnosticError" })
+vim.api.nvim_set_hl(0, "NvimTreeDiagnosticWarning", { link = "DiagnosticWarning" })
 
--- OR setup with some options
 require("nvim-tree").setup({
   sort = {
     sorter = "case_sensitive",
   },
   view = {
     width = 30,
+  },
+  diagnostics = {
+    enable = true,
+    show_on_dirs = true, -- This is crucial for showing diagnostics on folders
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    },
   },
   renderer = {
     group_empty = true,

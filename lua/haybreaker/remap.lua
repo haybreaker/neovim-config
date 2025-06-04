@@ -59,16 +59,18 @@ vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
 
-
 -- Nvim Dap Mappings
+local dap_ui = require('dapui');
 vim.keymap.set("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>");
 vim.keymap.set("n", "<leader>dt", "<cmd>DapTerminate<CR>");
 vim.keymap.set("n", "<leader>dr", "<cmd>DapContinue<CR>");
 vim.keymap.set("n", "<leader>dfr", "<cmd>FlutterDebug<CR>");
-vim.keymap.set("n", "<leader>de", require('dapui').eval);
+vim.keymap.set("n", "<leader>dfR", "<cmd>FlutterReload<CR>");
+vim.keymap.set("n", "<leader>de", dap_ui.eval);
 vim.keymap.set("n", "<leader>dsi", "<cmd>DapStepInto<CR>");
 vim.keymap.set("n", "<leader>dso", "<cmd>DapStepOver<CR>");
 vim.keymap.set("n", "<leader>dsb", "<cmd>DapStepOut<CR>");
+vim.keymap.set("n", "<leader>dut", dap_ui.toggle);
 
 -- Lua setup script for Neovim
 vim.api.nvim_set_keymap('n', 'gp', ':lua SwitchBetweenSourceAndHeader()<CR>', { noremap = true, silent = true })
