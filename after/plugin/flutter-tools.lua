@@ -1,4 +1,5 @@
 local flutter_tools = require('flutter-tools')
+local lsp_zero = require('lsp-zero')
 
 flutter_tools.setup {
   debugger = {
@@ -14,18 +15,14 @@ flutter_tools.setup {
   },
   lsp = {
     settings = {
-        lineLength = 125, -- <-- correct location
-        documentation = true
+      lineLength = 125, -- <-- correct location
+      documentation = true
     },
+    capabilities = lsp_zero.get_capabilities(),
     on_attach = function(client, bufnr)
-        vim.api.nvim_create_autocmd("BufWritePre", {
-          group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true }),
-          buffer = bufnr,
-          callback = function()
-            vim.lsp.buf.format({ async = false, timeout_ms = 10000, bufnr = bufnr })
-          end,
-          desc = "Format file on save"
-        })
+      lsp_zero.on_attach(client, bufnr)
     end
   },
 }
+
+vim.g.dart_format_on_save = false

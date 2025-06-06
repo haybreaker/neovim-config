@@ -3,31 +3,52 @@ local lsp_zero = require('lsp-zero')
 lsp_zero.on_attach(function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
 
-  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-  vim.keymap.set("n", "gh", function() vim.lsp.buf.hover() end, opts)
-  vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-  vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-  vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-  vim.keymap.set("n", "<D-.>", function() vim.lsp.buf.code_action() end, opts)
-  vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-  vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-  vim.keymap.set("n", "<leader>vrf", function() vim.lsp.buf.format() end, opts)
-  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+  -- LSP Keymaps
+  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)  -- Go Definition
+  vim.keymap.set("n", "gh", function() vim.lsp.buf.hover() end, opts)       -- Go Hover (show signature help/documentation)
+  vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end, opts)  -- Go References
+  vim.keymap.set("n", "gn", function() vim.lsp.buf.rename() end, opts)      -- Go Rename
+  vim.keymap.set("n", "ga", function() vim.lsp.buf.code_action() end, opts) -- Go Code Action
+  vim.keymap.set("n", "gf", function() vim.lsp.buf.format() end, opts)      -- Go Format (on demand)
 
-  if client.supports_method("textDocument/formatting") then
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true }),
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format({ async = false, timeout_ms = 10000, bufnr = bufnr })
-      end,
-      desc = "Format file on save"
-    })
-  end
+  -- Diagnostic Keymaps
+  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, opts) -- Go to previous diagnostic
+  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, opts) -- Go to next diagnostic
+
+  -- Additional Useful Keymaps
+  vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, opts) -- Workspace Symbols
+  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)        -- Signature Help in Insert mode
+
+  -- Auto-format on save
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true }),
+    buffer = bufnr,
+    callback = function()
+      vim.lsp.buf.format({ async = false, timeout_ms = 10000, bufnr = bufnr })
+    end,
+    desc = "Format file on save"
+  })
 end)
 
+-- Automatic Error Details Popup
+vim.diagnostic.config({
+  virtual_text = true,      -- Show virtual text for diagnostics
+  float = {
+    focusable = false,
+    style = "minimal",
+    border = "rounded"
+  }
+})
+
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.diagnostic.open_float(nil, { cursor_pos = true })
+  end,
+  desc = "Show diagnostic float on CursorHold"
+})
+
+
+-- Mason and LSP Setup
 require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = { 'clangd', 'ts_ls', 'rust_analyzer' },
@@ -40,6 +61,7 @@ require('mason-lspconfig').setup({
   }
 })
 
+-- Completion (cmp) Setup
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
