@@ -25,4 +25,12 @@ flutter_tools.setup {
   },
 }
 
+-- Remove auto format from dart-vim-plug, kept for indentation support
+
 vim.g.dart_format_on_save = false
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "dart",
+  callback = function()
+    vim.cmd("autocmd! dart-vim-plugin BufWritePre *.dart")
+  end,
+})
