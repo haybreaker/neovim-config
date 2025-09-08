@@ -2,7 +2,7 @@ local dap, dapui = require("dap"), require("dapui")
 local dapgo = require("dap-go")
 
 
--- Debugging Adapters Setup 
+-- Debugging Adapters Setup
 
 -- Go Debugging Adapter Setup (using Mason installed adapter)
 dapgo.setup {
@@ -27,24 +27,25 @@ dapgo.setup {
 
 -- LLDB Debugger Adapater Setup (C++, C, Rust)
 dap.adapters.codelldb = {
-    type = 'server',
-    port = '13000',
-    executable = {
-        command = 'codelldb',
-        args = { '--port', '13000' },
-    },
+  type = 'server',
+  port = '13000',
+  executable = {
+    command = 'codelldb',
+    args = { '--port', '13000' },
+  },
 }
 
 dap.configurations.cpp = {
-    {
-        type = 'codelldb',
-        request = 'launch',
-        program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd()..'/build/', 'file')
-        end,
-        cwd = '${workspaceFolder}',
-        terminal = 'integrated'
-    }
+  {
+    type = 'codelldb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/', 'file')
+    end,
+    name = "cpp",
+    cwd = '${workspaceFolder}',
+    terminal = 'integrated'
+  }
 }
 
 dap.configurations.c = dap.configurations.cpp

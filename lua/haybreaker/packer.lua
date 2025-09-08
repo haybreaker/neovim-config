@@ -80,8 +80,6 @@ return require('packer').startup(function(use)
       'nvim-lua/plenary.nvim'
     },
   }
-  use 'dart-lang/dart-vim-plugin'
-
 
   -- The Primeagen's Harpoon Plug for Quick File Marking and Nav
   use 'ThePrimeagen/harpoon'

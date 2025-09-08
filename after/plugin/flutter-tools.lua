@@ -1,6 +1,7 @@
 local flutter_tools = require('flutter-tools')
 local lsp_zero = require('lsp-zero')
 
+-- Remove auto format from dart-vim-plug, kept for indentation support
 flutter_tools.setup {
   debugger = {
     enabled = true,
@@ -10,10 +11,11 @@ flutter_tools.setup {
     enabled = false,
   },
   dev_tools = {
-    autostart = true,         -- autostart devtools server if not detected
-    auto_open_browser = true, -- Automatically opens devtools in the browser
+    autostart = true,          -- autostart devtools server if not detected
+    auto_open_browser = false, -- Automatically opens devtools in the browser
   },
   lsp = {
+    enabled = false,
     settings = {
       lineLength = 125, -- <-- correct location
       documentation = true
@@ -24,13 +26,3 @@ flutter_tools.setup {
     end
   },
 }
-
--- Remove auto format from dart-vim-plug, kept for indentation support
-
-vim.g.dart_format_on_save = false
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "dart",
-  callback = function()
-    vim.cmd("autocmd! dart-vim-plugin BufWritePre *.dart")
-  end,
-})

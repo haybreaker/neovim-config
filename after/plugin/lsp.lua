@@ -1,5 +1,8 @@
 local lsp_zero = require('lsp-zero')
 
+-- Create the augroup once, outside of on_attach for AutoFormatting
+vim.api.nvim_create_augroup("AutoFormatting", { clear = true })
+
 lsp_zero.on_attach(function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
 
@@ -16,15 +19,15 @@ lsp_zero.on_attach(function(client, bufnr)
   vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, opts) -- Go to next diagnostic
 
   -- Additional Useful Keymaps
-  vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, opts) -- Workspace Symbols
-  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)        -- Signature Help in Insert mode
+  vim.keymap.set("n", "gws", function() vim.lsp.buf.workspace_symbol() end, opts) -- Workspace Symbols
+  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts) -- Signature Help in Insert mode
 
   -- Auto-format on save
   vim.api.nvim_create_autocmd("BufWritePre", {
-    group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true }),
+    group = "AutoFormatting",
     buffer = bufnr,
     callback = function()
-      vim.lsp.buf.format({ async = false, timeout_ms = 10000, bufnr = bufnr })
+      vim.lsp.buf.format({ async = false })
     end,
     desc = "Format file on save"
   })
@@ -32,7 +35,7 @@ end)
 
 -- Automatic Error Details Popup
 vim.diagnostic.config({
-  virtual_text = true,      -- Show virtual text for diagnostics
+  virtual_text = true, -- Show virtual text for diagnostics
   float = {
     focusable = false,
     style = "minimal",
@@ -54,6 +57,12 @@ require('mason-lspconfig').setup({
   ensure_installed = { 'clangd', 'ts_ls', 'rust_analyzer' },
   handlers = {
     lsp_zero.default_setup,
+    clangd = function()
+      require('lspconfig').clangd.setup({
+        cmd = { "clangd", "--fallback-style={BasedOnStyle: Google, ColumnLimit: 125, BinPackParameters: false}" },
+        on_attach = lsp_zero.on_attach,
+      })
+    end,
     lua_ls = function()
       local lua_opts = lsp_zero.nvim_lua_ls()
       require('lspconfig').lua_ls.setup(lua_opts)
