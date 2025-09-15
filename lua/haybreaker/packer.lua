@@ -18,10 +18,20 @@ return require('packer').startup(function(use)
     }
   }
 
+
+  -- THEME DATA
+
   -- Gruvbox (Rust Style Theme)
   use {
     'morhetz/gruvbox',
     config = function() vim.cmd.colorscheme("gruvbox") end
+  }
+
+  use {
+    'jnz/studio98',
+    config = function()
+      vim.cmd.colorscheme "studio98"
+    end
   }
 
   -- Nvim Tree (Sidebar File Explore)
