@@ -65,7 +65,7 @@ vim.keymap.set("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>");
 vim.keymap.set("n", "<leader>dt", "<cmd>DapTerminate<CR>");
 vim.keymap.set("n", "<leader>dr", "<cmd>DapContinue<CR>");
 vim.keymap.set("n", "<leader>fr", "<cmd>FlutterDebug<CR>");
-vim.keymap.set("n", "<leader>fd", "<cmd>FlutterDebug<CR>");
+vim.keymap.set("n", "<leader>fd", "<cmd>FlutterDevices<CR>");
 vim.keymap.set("n", "<leader>fR", "<cmd>FlutterRestart<CR>");
 vim.keymap.set("n", "<leader>fc", "<cmd>FlutterCopyProfilerUrl<CR>");
 vim.keymap.set("n", "<leader>de", dap_ui.eval);
